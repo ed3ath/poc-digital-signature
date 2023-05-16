@@ -29,4 +29,6 @@ const signature = signMessage(JSON.stringify(data), clientSharedKey.toString('he
 
 // server verifying signature using server shared key
 const serverSharedKey = server.computeSecret(client.getPublicKey('hex'), 'hex');
-console.log(verifySignature(JSON.stringify(data), signature, serverSharedKey.toString('hex')));
+console.log("un-tampered data is valid:", verifySignature(JSON.stringify(data), signature, serverSharedKey.toString('hex')));
+// client submitted a tampered data
+console.log("tampered data is valid:", verifySignature(JSON.stringify({...data, data: "hello1"}), signature, serverSharedKey.toString('hex')));
